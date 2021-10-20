@@ -2,21 +2,17 @@
   <div class="container login-box">
     <b-form @submit.prevent="onLogin">
       <b-form-group
-        id="input-group-1"
         label="Email address:"
-        label-for="input-1"
       >
         <b-form-input
-          id="input-1"
           v-model="form.email"
           type="email"
           placeholder="Enter email"
         ></b-form-input>
       </b-form-group>
 
-      <b-form-group id="input-group-2" label="Password" label-for="input-3">
+      <b-form-group label="Password">
         <b-form-input
-          id="input-3"
           v-model="form.password"
           placeholder="Enter password"
           type="password"
@@ -80,6 +76,7 @@ export default {
 
 <style>
 .login-box {
+  margin-top: 30px;
   width: 300px;
   padding: 20px;
   border-radius: 10px;

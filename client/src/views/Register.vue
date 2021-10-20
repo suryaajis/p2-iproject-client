@@ -96,6 +96,7 @@ export default {
 
 <style>
 .register-box {
+  margin-top: 30px;
   width: 300px;
   padding: 20px;
   border-radius: 10px;
