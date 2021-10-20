@@ -9,6 +9,7 @@
       </b-input-group>
 
       <b-button type="submit" variant="primary">Search</b-button>
+      <b-button class="btn btn-warning" @click.prevent="clear">Reset</b-button>
     </b-form>
 
     <b-container class="bv-example-row">
@@ -49,6 +50,9 @@ export default {
         this.clearSearch([])
       }
     },
+    clear() {
+      this.query = ""
+    }
   },
 };
 </script>

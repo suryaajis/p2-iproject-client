@@ -35,9 +35,12 @@ export default {
 </script>
 
 <style>
-#app {
-  /* font-family: Avenir, Helvetica, Arial, sans-serif; */
+h1, h2, h3, h4, h5, #nav {
   font-family: "Saira", sans-serif;
+}
+
+#app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
@@ -54,8 +57,9 @@ export default {
 }
 
 #nav a.router-link-exact-active {
-  color: #42b983;
+  color: #F0A500;
 }
+
 .selector-for-some-widget {
   box-sizing: content-box;
 }

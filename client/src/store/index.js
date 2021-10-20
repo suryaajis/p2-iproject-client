@@ -54,7 +54,6 @@ export default new Vuex.Store({
           data: payload,
         });
 
-        
         localStorage.setItem("access_token", data.access_token);
         context.commit("LOGIN_USER", true);
         console.log("Login Success");
@@ -97,7 +96,6 @@ export default new Vuex.Store({
           },
         });
 
-        console.log(response.data);
         context.commit("SEARCH_ITEM", response.data);
       } catch (err) {
         console.log(err.response.data);
@@ -119,6 +117,73 @@ export default new Vuex.Store({
         console.log(err.response.data);
       }
     },
+
+    async createFavorite(_, payload) {
+      try {
+        let song = {
+          title: payload.title,
+          duration: payload.duration,
+          artist: payload.artist.name,
+          cover: payload.album.cover,
+          songUrl: payload.preview,
+          fullSongUrl: payload.link,
+        };
+
+        const { data } = await axios({
+          url: "/music",
+          method: "POST",
+          data: song,
+          headers: {
+            access_token: localStorage.access_token,
+          },
+        });
+
+        axios({
+          url: "/music/favorites/" + data.id,
+          method: "POST",
+          headers: {
+            access_token: localStorage.access_token,
+          },
+        });
+      } catch (err) {
+        console.log(err.response.data);
+      }
+    },
+
+    async deleteFavorite(_, payload) {
+      try {
+        const { data } = await axios({
+          url: "/music/favorites/" + payload,
+          method: "DELETE",
+          headers: {
+            access_token: localStorage.access_token,
+          },
+        });
+
+        console.log(data);
+      } catch (err) {
+        console.log(err.response.data);
+      }
+    },
+
+    async changeStatusFavorite(_, payload) {
+      try {
+        const { data } = await axios({
+          url: "/music/favorites/" + payload.favoriteId,
+          method: "PATCH",
+          data: {
+            status: payload.status
+          },
+          headers: {
+            access_token: localStorage.access_token
+          }
+        })
+
+        console.log(data)
+      } catch (err) {
+        console.log(err.response.data)
+      }
+    }
   },
   modules: {},
 });
