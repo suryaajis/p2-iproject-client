@@ -8,7 +8,7 @@
       <hr />
       <b-list-group-item
         style="background-color:#212529;color:#fff;text-decoration:none;"
-        ><router-link to="/" class="list"> My Library</router-link></b-list-group-item
+        ><router-link to="/" class="list">My Library</router-link></b-list-group-item
       >
       <b-list-group-item
         class="list"
@@ -40,6 +40,7 @@ export default {
     async onLogout() {
       await this.logout();
       this.$router.push({ name: "Login" });
+      this.$toast.success('Logout Success!')
     },
   },
   created() {
@@ -83,6 +84,10 @@ export default {
 .account {
   color: rgb(167, 167, 167);
   font-style: italic;
+  font-weight: bold;
   margin-bottom: -10px;
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: 1px;
 }
 </style>
