@@ -7,15 +7,10 @@
           id="input-2"
           v-model="form.fullName"
           placeholder="Enter name"
-          required
         ></b-form-input>
       </b-form-group>
 
-      <b-form-group
-        id="input-group-1"
-        label="Email"
-        label-for="input-1"
-      >
+      <b-form-group id="input-group-1" label="Email" label-for="input-1">
         <b-form-input
           id="input-1"
           v-model="form.email"
@@ -53,13 +48,16 @@
 
       <b-button type="submit" variant="primary">Register</b-button>
       <b-button type="reset" variant="danger">Reset</b-button>
-      <p style="margin-top:5px;">You have an account? <router-link :to="{name: 'Login'}">Login</router-link></p>
+      <p style="margin-top:5px;">
+        You have an account?
+        <router-link :to="{ name: 'Login' }">Login</router-link>
+      </p>
     </b-form>
   </div>
 </template>
 
 <script>
-import { mapActions, mapState } from 'vuex'
+import { mapActions, mapState } from "vuex";
 export default {
   name: "Register",
   data() {
@@ -74,14 +72,16 @@ export default {
     };
   },
   computed: {
-    ...mapState(['isRegister'])
+    ...mapState(["isRegister"]),
   },
   methods: {
-    ...mapActions(['register']),
+    ...mapActions(["register"]),
     async onRegister() {
-      await this.register(this.form)
-      if(this.isRegister === true) {
-        this.$router.push({name: "Login"})
+      await this.register(this.form);
+      if (this.isRegister === true) {
+        this.$router.push({ name: "Login" });
+      } else {
+        this.$toast.error("Please fill empty input");
       }
     },
     onReset() {
@@ -89,7 +89,7 @@ export default {
       this.form.fullName = "";
       this.form.password = "";
       this.form.phone = "";
-      this.form.address = ""
+      this.form.address = "";
     },
   },
 };
@@ -98,11 +98,11 @@ export default {
 <style>
 .register-box {
   text-align: left;
-  margin-top: 110px;
+  margin: auto;
   width: 300px;
   padding: 20px;
-  border-radius: 10px;  
-  box-shadow: 3px 3px 15px rgba(0, 0, 0, 1);
+  border-radius: 10px;
+  box-shadow: 3px 3px 15px rgba(255, 255, 255, 1);
   background-color: transparent;
   color: white;
 }

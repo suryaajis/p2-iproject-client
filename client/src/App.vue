@@ -5,7 +5,7 @@
         <b-col cols="2" v-if="isLogin === true"
           ><sidebar class="sdbar"></sidebar
         ></b-col>
-        <b-col>
+        <b-col style="overflow:auto;">
           <router-view />
         </b-col>
       </b-row>
@@ -61,7 +61,7 @@ h5,
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
-  background-image: url("./assets/wave.jpg");
+  background-image: url("./assets/dj2.jpg");
   height: 100%;
   padding-top: 8%;
   background-position: center;
@@ -78,15 +78,16 @@ h5,
 }
 
 #home {
-  border-radius: 10px 10px 0 0;
+  border-radius: 10px;
   box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.5);
   background-color: whitesmoke;
-  height: 80%;
-  overflow: auto;
+  height: 85%;
+  overflow: hidden;
 }
 
 .sdbar {
   margin-left: -12px;
+  overflow: hidden;
 }
 
 .full-height {

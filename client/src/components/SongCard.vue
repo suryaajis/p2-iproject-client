@@ -3,19 +3,18 @@
     <b-card
       img-top
       tag="article"
-      style="max-width: 20rem;"
+      style="width: 15rem;"
       class="song-box"
     >
       <h4>{{item.title}}</h4>
       <iframe
         title="deezer-widget"
         :src="item.widget"
-        width="200"
+        width="130"
         height="100"
         frameborder="0"
         allowtransparency="true"
         allow="encrypted-media; clipboard-write"
-        class="mb-3 mt-1"
       ></iframe>
 
       <b-button href="#" variant="primary" @click.prevent="addFavorite(item)"
@@ -32,8 +31,9 @@ export default {
   props: ["item"],
   methods: {
     ...mapActions(["createFavorite"]),
-    addFavorite(item) {
-      this.createFavorite(item);
+    async addFavorite(item) {
+      await this.createFavorite(item);
+      this.$toast.success(`Success add favorite ${item.title}`)
     },
   },
 };
@@ -41,9 +41,9 @@ export default {
 
 <style>
 .song-box {
-  height: 260px;
+  height: 225px;
   width: 100%;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   margin-right: 10px;
   border-radius: 10%;
   box-shadow: 1px 1px 10px rgba(0,0,0,0.5);

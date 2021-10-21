@@ -22,8 +22,8 @@
         </b-form-group>
 
         <b-button
-          style="margin-left:20px;"
           @click.prevent="onDeleteFavorite(favorite.id)"
+          class="btn btn-danger"
           >Delete</b-button
         >
       </div>
@@ -54,6 +54,7 @@ export default {
     async onDeleteFavorite(favoriteId) {
       await this.deleteFavorite(favoriteId);
       this.fetchFavorites();
+      this.$toast.success('Success delete favorite')
     },
     async changeStatus(status) {
       const payload = {
@@ -63,6 +64,7 @@ export default {
       await this.changeStatusFavorite(payload);
       await this.fetchFavorites();
       this.selected = this.favorite.status;
+      this.$toast.success('Success change status favorite')
     },
   },
 };
@@ -71,15 +73,17 @@ export default {
 <style>
 .card-box {
   box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.5);
-  height: 120px;
+  height: 130px;
   display: inline-flex;
 }
 
 .select-form {
-  width: 100px;
+  width: 120px;
   height: 50px;
   margin-right: 15px;
   margin-left: 15px;
-  border-radius: 5px;
+  border-radius: 15px;
+  font-family: "Saira", sans-serif;
+  border: 5px solid rgb(112, 112, 112)
 }
 </style>

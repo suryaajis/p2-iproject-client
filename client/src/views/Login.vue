@@ -27,7 +27,9 @@
         >
           Sign in with Google
         </g-signin-button>
-        <router-link style="color:white;" :to="{ name: 'Register' }">Create new account</router-link>
+        <router-link style="color:white;" :to="{ name: 'Register' }"
+          >Create new account</router-link
+        >
       </div>
     </b-form>
   </div>
@@ -45,7 +47,7 @@ export default {
       },
       googleSignInParams: {
         client_id:
-          "470274448452-gb7j62pflkrr9768bbuvv1p6b18b2skv.apps.googleusercontent.com",
+          "470274448452-rqbe327191hfug0ut4v51t1l3od6nkah.apps.googleusercontent.com",
       },
     };
   },
@@ -57,14 +59,20 @@ export default {
     async onLogin() {
       await this.login(this.form);
       if (this.isLogin === true) {
+        this.$toast.success("Login Success!");
         this.$router.push({ name: "Home" });
+      } else {
+        this.$toast.error("Invalid email/password");
       }
     },
     async onSignInSuccess(googleUser) {
       const id_token = googleUser.getAuthResponse().id_token;
       await this.loginGoogle(id_token);
       if (this.isLogin === true) {
+        this.$toast.success("Login Success!");
         this.$router.push({ name: "Home" });
+      } else {
+        this.$toast.error("Check your connection");
       }
     },
     onSignInError(error) {
@@ -77,12 +85,12 @@ export default {
 <style>
 .login-box {
   text-align: left;
-  margin: 175px auto;
+  margin: auto;
   width: 300px;
-  height: 50%;
+  height: 100%;
   padding: 20px;
-  border-radius: 10px;  
-  box-shadow: 3px 3px 15px rgba(0, 0, 0, 1);
+  border-radius: 10px;
+  box-shadow: 3px 3px 15px rgba(255, 255, 255, 1);
   background-color: transparent;
   color: white;
 }
