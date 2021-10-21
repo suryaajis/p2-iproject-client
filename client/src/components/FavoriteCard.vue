@@ -5,23 +5,35 @@
       :img-src="favorite.Song.cover"
       img-alt="Card image"
       img-left
-      style="display:flex;"
     >
       <b-card-text>
         {{ favorite.Song.artist }} - {{ favorite.Song.title }}
       </b-card-text>
-      <audio controls>
-        <source :src="favorite.Song.songUrl" />
-      </audio>
+      <audio id="audio" :src="favorite.Song.songUrl" controls></audio>
 
-      <b-form-select @change="changeStatus($event)" v-model="selected" :options="options"></b-form-select>
-      <b-button @click.prevent="onDeleteFavorite(favorite.id)">Delete</b-button>
+      <div style="display:inline-flex;">
+        <b-form-group>
+          <b-form-select
+            class="select-form"
+            @change="changeStatus($event)"
+            v-model="selected"
+            :options="options"
+          ></b-form-select>
+        </b-form-group>
+
+        <b-button
+          style="margin-left:20px;"
+          @click.prevent="onDeleteFavorite(favorite.id)"
+          >Delete</b-button
+        >
+      </div>
     </b-card>
   </div>
 </template>
 
 <script>
 import { mapActions } from "vuex";
+
 export default {
   name: "FavoriteCard",
   data() {
@@ -46,12 +58,12 @@ export default {
     async changeStatus(status) {
       const payload = {
         status,
-        favoriteId: this.favorite.id
-      }
-      await this.changeStatusFavorite(payload)
-      await this.fetchFavorites()
-      this.selected = this.favorite.status
-    }
+        favoriteId: this.favorite.id,
+      };
+      await this.changeStatusFavorite(payload);
+      await this.fetchFavorites();
+      this.selected = this.favorite.status;
+    },
   },
 };
 </script>
@@ -60,5 +72,14 @@ export default {
 .card-box {
   box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.5);
   height: 120px;
+  display: inline-flex;
+}
+
+.select-form {
+  width: 100px;
+  height: 50px;
+  margin-right: 15px;
+  margin-left: 15px;
+  border-radius: 5px;
 }
 </style>

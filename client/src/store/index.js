@@ -10,6 +10,7 @@ export default new Vuex.Store({
     isRegister: false,
     searchItems: [],
     favorites: [],
+    user: {}
   },
   mutations: {
     REGISTER_USER(state, payload) {
@@ -28,6 +29,10 @@ export default new Vuex.Store({
     FETCH_FAVORITES(state, payload) {
       state.favorites = payload;
     },
+    GET_USER(state, payload) {
+      state.user = payload
+    },
+
   },
   actions: {
     async register(context, payload) {
@@ -96,6 +101,10 @@ export default new Vuex.Store({
           },
         });
 
+        response.data.data.forEach(el => {
+          el.widget = `https://widget.deezer.com/widget/dark/track/${el.id}`
+        })
+        
         context.commit("SEARCH_ITEM", response.data);
       } catch (err) {
         console.log(err.response.data);
@@ -183,7 +192,23 @@ export default new Vuex.Store({
       } catch (err) {
         console.log(err.response.data)
       }
-    }
+    },
+
+    async userDetail(context) {
+      try {
+        const { data } = await axios({
+          url: "/user",
+          method: "GET",
+          headers: {
+            access_token: localStorage.access_token
+          }
+        })
+
+        context.commit("GET_USER", data)
+      } catch (err) {
+        console.log(err.response.data)
+      }
+    },
   },
   modules: {},
 });

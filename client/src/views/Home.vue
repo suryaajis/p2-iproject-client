@@ -27,7 +27,5 @@ export default {
 </script>
 
 <style>
-.sidebar {
-  left: 0;
-}
+
 </style>
