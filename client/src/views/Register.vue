@@ -1,7 +1,8 @@
 <template>
   <div class="container register-box">
+    <h1 style="margin-bottom:20px;">Register</h1>
     <b-form @submit.prevent="onRegister" @reset.prevent="onReset">
-      <b-form-group id="input-group-2" label="Full Name:" label-for="input-2">
+      <b-form-group id="input-group-2" label="Full Name" label-for="input-2">
         <b-form-input
           id="input-2"
           v-model="form.fullName"
@@ -12,7 +13,7 @@
 
       <b-form-group
         id="input-group-1"
-        label="Email address:"
+        label="Email"
         label-for="input-1"
       >
         <b-form-input
@@ -34,7 +35,7 @@
         ></b-form-input>
       </b-form-group>
 
-      <b-form-group id="input-group-2" label="Phone:" label-for="input-4">
+      <b-form-group id="input-group-2" label="Phone" label-for="input-4">
         <b-form-input
           id="input-4"
           v-model="form.phone"
@@ -42,7 +43,7 @@
         ></b-form-input>
       </b-form-group>
 
-      <b-form-group id="input-group-2" label="Address:" label-for="input-5">
+      <b-form-group id="input-group-2" label="Address" label-for="input-5">
         <b-form-input
           id="input-5"
           v-model="form.address"
@@ -50,9 +51,9 @@
         ></b-form-input>
       </b-form-group>
 
-      <b-button type="submit" variant="primary">Submit</b-button>
+      <b-button type="submit" variant="primary">Register</b-button>
       <b-button type="reset" variant="danger">Reset</b-button>
-      <p>You have an account? <router-link :to="{name: 'Login'}">Login</router-link></p>
+      <p style="margin-top:5px;">You have an account? <router-link :to="{name: 'Login'}">Login</router-link></p>
     </b-form>
   </div>
 </template>
@@ -96,10 +97,14 @@ export default {
 
 <style>
 .register-box {
+  text-align: left;
+  margin-top: 110px;
   width: 300px;
   padding: 20px;
-  border-radius: 10px;
-  box-shadow: 1px 1px 10px rgba(0,0,0,0.5);
+  border-radius: 10px;  
+  box-shadow: 3px 3px 15px rgba(0, 0, 0, 1);
+  background-color: transparent;
+  color: white;
 }
 
 .register-box button {
@@ -109,5 +114,6 @@ export default {
 
 .register-box input {
   margin-bottom: 5px;
+  /* background-color: transparent; */
 }
 </style>

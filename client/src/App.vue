@@ -1,37 +1,115 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/find">Find Music</router-link>  |
-      <router-link to="/register">Register</router-link> |
-      <router-link to="/login">Login</router-link>
-    </div>
-    <router-view/>
+  <div id="app" class="overlay">
+    <b-container v-if="isLogin === true" id="home" class="bv-example-row">
+      <b-row class="text-center full-height">
+        <b-col cols="2" v-if="isLogin === true"
+          ><sidebar class="sdbar"></sidebar
+        ></b-col>
+        <b-col>
+          <router-view />
+        </b-col>
+      </b-row>
+    </b-container>
+    <b-container class="bv-example-row" v-if="isLogin === false">
+      <b-row class="text-center full-height">
+        <b-col cols="2" v-if="isLogin === true"
+          ><sidebar class="sdbar"></sidebar
+        ></b-col>
+        <b-col>
+          <router-view />
+        </b-col>
+      </b-row>
+    </b-container>
   </div>
 </template>
 
+<script>
+import { mapState, mapMutations } from "vuex";
+import Sidebar from "./components/Sidebar.vue";
+export default {
+  name: "App",
+  components: { Sidebar },
+  computed: {
+    ...mapState(["isLogin"]),
+  },
+  methods: {
+    ...mapMutations({
+      onLogin: "LOGIN_USER",
+    }),
+  },
+  created() {
+    if (localStorage.getItem("access_token")) {
+      this.onLogin(true);
+    }
+  },
+};
+</script>
+
 <style>
+h1,
+h2,
+h3,
+h4,
+h5,
+.sdbar {
+  font-family: "Saira", sans-serif;
+}
+
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  /* font-family: Avenir, Helvetica, Arial, sans-serif; */
+  font-family: "Nunito", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
+  background-image: url("./assets/wave.jpg");
+  height: 100%;
+  padding-top: 8%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
-#nav {
-  padding: 30px;
-  text-align: center;
+.sdbar a.router-link-exact-active {
+  color: #f0a500;
 }
 
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
-}
 .selector-for-some-widget {
   box-sizing: content-box;
+}
+
+#home {
+  border-radius: 10px 10px 0 0;
+  box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.5);
+  background-color: whitesmoke;
+  height: 80%;
+  overflow: auto;
+}
+
+.sdbar {
+  margin-left: -12px;
+}
+
+.full-height {
+  height: 100%;
+}
+/* 
+.overlay {
+  filter: blur(1px);
+} */
+
+.player {
+  background-color: grey;
+  border-radius: 0px 0px 10px 10px;
+  width: 100%;
+  height: 70px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* padding: 10px; */
+}
+
+.icons {
+  margin-right: 20px;
+  cursor: pointer;
 }
 </style>
