@@ -20,15 +20,17 @@
         </b-col>
       </b-row>
     </b-container>
+    <HFooter id="footer"></HFooter>
   </div>
 </template>
 
 <script>
+import HFooter from "vue-hacktiv8-footer";
 import { mapState, mapMutations } from "vuex";
 import Sidebar from "./components/Sidebar.vue";
 export default {
   name: "App",
-  components: { Sidebar },
+  components: { Sidebar, HFooter },
   computed: {
     ...mapState(["isLogin"]),
   },
@@ -63,18 +65,10 @@ h5,
   color: #2c3e50;
   background-image: url("./assets/dj2.jpg");
   height: 100%;
-  padding-top: 8%;
+  padding-top: 5%;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-}
-
-.sdbar a.router-link-exact-active {
-  color: #f0a500;
-}
-
-.selector-for-some-widget {
-  box-sizing: content-box;
 }
 
 #home {
@@ -85,6 +79,23 @@ h5,
   overflow: hidden;
 }
 
+#footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 60px;
+  background-color: #212529;
+}
+
+.sdbar a.router-link-exact-active {
+  color: #f0a500;
+}
+
+.selector-for-some-widget {
+  box-sizing: content-box;
+}
+
 .sdbar {
   margin-left: -12px;
   overflow: hidden;
@@ -93,10 +104,6 @@ h5,
 .full-height {
   height: 100%;
 }
-/* 
-.overlay {
-  filter: blur(1px);
-} */
 
 .player {
   background-color: grey;
