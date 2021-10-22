@@ -3,23 +3,34 @@
     <b-list-group>
       <b-list-group-item style="background-color:#212529;color:#fff;">
         <img :src="user.imgUrl" alt="" class="avatar" />
-        <h6 class="account">{{ user.email }}<br>{{ user.fullName }}</h6>
+        <h6 class="account">{{ user.email }}<br />{{ user.fullName }}</h6>
       </b-list-group-item>
       <hr />
       <b-list-group-item
         style="background-color:#212529;color:#fff;text-decoration:none;"
-        ><router-link to="/" class="list">My Library</router-link></b-list-group-item
+        ><router-link to="/" class="list"
+          >My Library</router-link
+        ></b-list-group-item
       >
       <b-list-group-item
         class="list"
         style="background-color:#212529;color:#fff;text-decoration:none;"
-        ><router-link to="/find" class="list">Find Music</router-link></b-list-group-item
+        ><router-link to="/find" class="list"
+          >Find Music</router-link
+        ></b-list-group-item
       >
       <b-list-group-item
+        v-if="isLogin === true"
         class="list"
         style="background-color:#212529;color:#fff;text-decoration:none;"
         @click.prevent="onLogout"
         ><a href="" class="list">Logout</a></b-list-group-item
+      ><b-list-group-item
+        v-if="isLogin === false"
+        class="list"
+        style="background-color:#212529;color:#fff;text-decoration:none;"
+        @click.prevent="toLogin"
+        ><a href="" class="list">Login</a></b-list-group-item
       >
     </b-list-group>
   </div>
@@ -30,7 +41,7 @@ import { mapActions, mapState, mapMutations } from "vuex";
 export default {
   name: "Sidebar",
   computed: {
-    ...mapState(["user"]),
+    ...mapState(["user", "isLogin"]),
   },
   methods: {
     ...mapActions(["userDetail"]),
@@ -40,7 +51,10 @@ export default {
     async onLogout() {
       await this.logout();
       this.$router.push({ name: "Login" });
-      this.$toast.success('Logout Success!')
+      this.$toast.success("Logout Success!");
+    },
+    toLogin() {
+      this.$router.push({ name: "Login" });
     },
   },
   created() {

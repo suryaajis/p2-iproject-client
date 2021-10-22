@@ -12,8 +12,8 @@ const routes = [
   },
   {
     path: "/find",
-    name: "FindFavorite",
-    component: () => import("../views/FindFavorite.vue"),
+    name: "FindMusic",
+    component: () => import("../views/FindMusic.vue"),
   },
   {
     path: "/register",

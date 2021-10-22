@@ -6,7 +6,8 @@
       style="width: 15rem;"
       class="song-box"
     >
-      <h4>{{item.title}}</h4>
+      <h4>{{item.artist.name}}</h4>
+      <p>{{item.title}}</p>
       <iframe
         title="deezer-widget"
         :src="item.widget"
@@ -41,7 +42,7 @@ export default {
 
 <style>
 .song-box {
-  height: 225px;
+  height: 230px;
   width: 100%;
   margin-bottom: 10px;
   margin-right: 10px;
@@ -51,5 +52,11 @@ export default {
 
 .song-box h4 {
   font-size: 16px;
+  margin-bottom: 0px;
+}
+
+.song-box p {
+  font-size: 12px;
+  margin-bottom: 5px;
 }
 </style>

@@ -8,9 +8,10 @@ export default new Vuex.Store({
   state: {
     isLogin: false,
     isRegister: false,
-    searchItems: [],
+    searchSongs: [],
+    searchLyric: undefined,
     favorites: [],
-    user: {}
+    user: {},
   },
   mutations: {
     REGISTER_USER(state, payload) {
@@ -24,15 +25,24 @@ export default new Vuex.Store({
       state.isLogin = false;
     },
     SEARCH_ITEM(state, payload) {
-      state.searchItems = payload;
+      if (payload.search === "songs") {
+        state.searchSongs = payload.data;
+        state.searchLyric = undefined;
+      } else if (payload.search === "lyrics") {
+        state.searchSongs = [];
+        state.searchLyric = payload.data;
+      }
+    },
+    CLEAR_SEARCH(state) {
+      state.searchSongs = []
+      state.searchLyric = undefined
     },
     FETCH_FAVORITES(state, payload) {
       state.favorites = payload;
     },
     GET_USER(state, payload) {
-      state.user = payload
+      state.user = payload;
     },
-
   },
   actions: {
     async register(context, payload) {
@@ -101,11 +111,43 @@ export default new Vuex.Store({
           },
         });
 
-        response.data.data.forEach(el => {
-          el.widget = `https://widget.deezer.com/widget/dark/track/${el.id}`
-        })
-        
-        context.commit("SEARCH_ITEM", response.data);
+        response.data.data.forEach((el) => {
+          el.widget = `https://widget.deezer.com/widget/dark/track/${el.id}`;
+        });
+
+        const result = {
+          search: "songs",
+          data: response.data,
+        };
+
+        context.commit("SEARCH_ITEM", result);
+      } catch (err) {
+        console.log(err.response.data);
+      }
+    },
+
+    async findMusicLyrics(context, payload) {
+      try {
+        let mainUrl = "/music/searchLyrics?";
+
+        if (payload) {
+          mainUrl += `search=${payload.artist}&search=${payload.title}`;
+        }
+
+        const response = await axios({
+          url: mainUrl,
+          method: "GET",
+          headers: {
+            access_token: localStorage.access_token,
+          },
+        });
+
+        const result = {
+          search: "lyrics",
+          data: response.data,
+        };
+
+        context.commit("SEARCH_ITEM", result);
       } catch (err) {
         console.log(err.response.data);
       }
@@ -181,16 +223,16 @@ export default new Vuex.Store({
           url: "/music/favorites/" + payload.favoriteId,
           method: "PATCH",
           data: {
-            status: payload.status
+            status: payload.status,
           },
           headers: {
-            access_token: localStorage.access_token
-          }
-        })
+            access_token: localStorage.access_token,
+          },
+        });
 
-        console.log(data)
+        console.log(data);
       } catch (err) {
-        console.log(err.response.data)
+        console.log(err.response.data);
       }
     },
 
@@ -200,13 +242,13 @@ export default new Vuex.Store({
           url: "/user",
           method: "GET",
           headers: {
-            access_token: localStorage.access_token
-          }
-        })
+            access_token: localStorage.access_token,
+          },
+        });
 
-        context.commit("GET_USER", data)
+        context.commit("GET_USER", data);
       } catch (err) {
-        console.log(err.response.data)
+        console.log(err.response.data);
       }
     },
   },
