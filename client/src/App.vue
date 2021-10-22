@@ -10,16 +10,9 @@
         </b-col>
       </b-row>
     </b-container>
-    <b-container class="bv-example-row" v-if="isLogin === false">
-      <b-row class="text-center full-height">
-        <b-col cols="2" v-if="isLogin === true"
-          ><sidebar class="sdbar"></sidebar
-        ></b-col>
-        <b-col>
-          <router-view />
-        </b-col>
-      </b-row>
-    </b-container>
+    <div v-if="isLogin === false">
+      <router-view />
+    </div>
     <HFooter id="footer"></HFooter>
   </div>
 </template>
@@ -76,7 +69,7 @@ h5,
   box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.5);
   background-color: whitesmoke;
   height: 85%;
-  overflow: hidden;
+  overflow: auto;
 }
 
 #footer {
