@@ -3,4 +3,4 @@ Individual Project - Client
 
 Link: **https://sun-music-frontend.web.app/**
 
-![](mockup/home.png)
+![](mockup/home.PNG)
