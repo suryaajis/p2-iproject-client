@@ -1,29 +1,19 @@
 <template>
   <div id="nav">
-  <b-navbar toggleable="lg" type="dark" variant="dark">
-    <img to="/" class="logo" src="../assets/brand-logo.png" alt="">
+    <BNavbar toggleable="lg" type="dark" variant="dark">
+      <img class="logo" src="../assets/brand-logo.png" alt="" />
 
-    <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
+      <BNavbarToggle target="nav-collapse"></BNavbarToggle>
 
-    <b-collapse id="nav-collapse" is-nav>
-      <b-navbar-nav>
-        <b-nav-item><router-link to="/">My Library</router-link></b-nav-item>
-        <b-nav-item><router-link to="/find">Find Music</router-link></b-nav-item>
-        <b-nav-item href="#" @click.prevent="onLogout">Logout</b-nav-item>
-      </b-navbar-nav>
-
-      <!-- <b-navbar-nav class="ml-auto">
-        <b-nav-item-dropdown right>
-          <template #button-content>
-            <em>User</em>
-          </template>
-          <b-dropdown-item href="#">Profile</b-dropdown-item>
-          <b-dropdown-item href="#">Sign Out</b-dropdown-item>
-        </b-nav-item-dropdown>
-      </b-navbar-nav> -->
-    </b-collapse>
-  </b-navbar>
-</div>
+      <BCollapse id="nav-collapse" is-nav>
+        <BNavbarNav>
+          <BNavItem><router-link to="/">My Library</router-link></BNavItem>
+          <BNavItem><router-link to="/find">Find Music</router-link></BNavItem>
+          <BNavItem href="#" @click.prevent="onLogout">Logout</BNavItem>
+        </BNavbarNav>
+      </BCollapse>
+    </BNavbar>
+  </div>
 </template>
 
 <script>
@@ -36,7 +26,7 @@ export default {
     }),
     async onLogout() {
       await this.logout()
-      this.$router.push({name: "Login"})
+      this.$router.push({ name: "Login" })
     }
   }
 };
@@ -46,6 +36,6 @@ export default {
 .logo {
   width: 105px;
   height: 55px;
-  margin:  -10px 0;
+  margin: -10px 0;
 }
 </style>

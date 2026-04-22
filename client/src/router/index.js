@@ -1,8 +1,5 @@
-import Vue from "vue";
-import VueRouter from "vue-router";
+import { createRouter, createWebHistory } from "vue-router";
 import Home from "../views/Home.vue";
-
-Vue.use(VueRouter);
 
 const routes = [
   {
@@ -27,22 +24,17 @@ const routes = [
   },
 ];
 
-const router = new VueRouter({
-  mode: "history",
-  base: process.env.BASE_URL,
+const router = createRouter({
+  history: createWebHistory(import.meta.env.BASE_URL),
   routes,
 });
 
 router.beforeEach((to, from, next) => {
-  if (!localStorage.getItem("access_token") && to.name === "Home") {
+  const protectedRoutes = ["Home", "FindFavorite"];
+  const isLoggedIn = !!localStorage.getItem("access_token");
+  if (!isLoggedIn && protectedRoutes.includes(to.name)) {
     next({ name: "Login" });
-  } else {
-    next();
-  }
-
-  if (localStorage.getItem("access_token") && to.name === "Login") {
-    next({ name: "Home" });
-  } else if (localStorage.getItem("access_token") && to.name === "Register") {
+  } else if (isLoggedIn && (to.name === "Login" || to.name === "Register")) {
     next({ name: "Home" });
   } else {
     next();

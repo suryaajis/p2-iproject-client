@@ -1,24 +1,26 @@
-import Vue from 'vue'
+import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
-import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
-import GSignInButton from 'vue-google-signin-button'
+import { createBootstrap } from 'bootstrap-vue-next'
+import ToastPlugin from 'vue-toast-notification'
+import vue3GoogleLogin from 'vue3-google-login'
+
 import 'bootstrap/dist/css/bootstrap.css'
-import 'bootstrap-vue/dist/bootstrap-vue.css'
-import VueToast from 'vue-toast-notification';
-import 'vue-toast-notification/dist/theme-sugar.css';
+import 'bootstrap-vue-next/dist/bootstrap-vue-next.css'
+import 'bootstrap-icons/font/bootstrap-icons.css'
+import 'vue-toast-notification/dist/theme-sugar.css'
 
-Vue.use(BootstrapVue)
-Vue.use(IconsPlugin)
-Vue.use(GSignInButton)
-Vue.use(VueToast, {
-  position: 'top-right'
-});
-Vue.config.productionTip = false
+const app = createApp(App)
 
-new Vue({
-  router,
-  store,
-  render: h => h(App)
-}).$mount('#app')
+app.use(router)
+app.use(store)
+app.use(createBootstrap())
+app.use(ToastPlugin, { position: 'top-right' })
+
+const googleClientId = import.meta.env.VITE_GOOGLE_CLIENT_ID
+if (googleClientId) {
+  app.use(vue3GoogleLogin, { clientId: googleClientId })
+}
+
+app.mount('#app')
